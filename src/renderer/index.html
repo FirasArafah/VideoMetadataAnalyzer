@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Video and Photo Metadata Analyzer - Extract detailed metadata from media files">
+  <meta name="author" content="Firas Arafah">
+  <title>Media Metadata Analyzer</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/editor/editor.main.min.css">
+  <script src="https://unpkg.com/i18next/dist/umd/i18next.min.js"></script>
+  <script src="https://unpkg.com/i18next-http-backend/i18nextHttpBackend.js"></script>
+  <script src="https://unpkg.com/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 id="app-title">Media Metadata Analyzer</h1>
+      <div class="language-switcher">
+        <button id="lang-en" class="lang-btn">English</button>
+        <button id="lang-ar" class="lang-btn">العربية</button>
+      </div>
+    </div>
+
+    <div id="drop-zone" class="drop-zone">
+      <p id="drop-zone-text">Drag & Drop media file here or</p>
+      <button id="browse-btn" class="browse-btn">Browse Files</button>
+    </div>
+
+    <div id="file-info" class="file-info hidden">
+      <h2 id="file-info-title">File Information</h2>
+      <div class="file-info-content">
+        <p><strong id="filename-label">Filename:</strong> <span id="filename"></span></p>
+        <p><strong id="filesize-label">Filesize:</strong> <span id="filesize"></span></p>
+        <p><strong id="filetype-label">Filetype:</strong> <span id="filetype"></span></p>
+      </div>
+      <div id="thumbnail-container" class="thumbnail-container hidden">
+        <img id="thumbnail" src="" alt="Thumbnail">
+      </div>
+    </div>
+
+    <div class="metadata-container">
+      <div class="metadata-tabs">
+        <button id="tab-structured" class="tab-btn active" data-tab="structured">Structured Metadata</button>
+        <button id="tab-raw" class="tab-btn" data-tab="raw">Raw Metadata</button>
+      </div>
+
+      <div id="metadata-content" class="metadata-content">
+        <div id="structured-metadata" class="metadata-section active">
+          <div class="metadata-grid">
+            <!-- Camera Info -->
+            <div class="metadata-group">
+              <h3 id="camera-info-title">Camera Information</h3>
+              <div class="metadata-item">
+                <span id="make-label">Make:</span>
+                <span id="make-value" class="value"></span>
+              </div>
+              <div class="metadata-item">
+                <span id="model-label">Model:</span>
+                <span id="model-value" class="value"></span>
+              </div>
+              <div class="metadata-item">
+                <span id="lens-label">Lens:</span>
+                <span id="lens-value" class="value"></span>
+              </div>
+            </div>
+
+            <!-- Media Settings -->
+            <div class="metadata-group">
+              <h3 id="media-settings-title">Media Settings</h3>
+              <div class="metadata-item">
+                <span id="duration-label">Duration:</span>
+                <span id="duration-value" class="value"></span>
+              </div>
+              <div class="metadata-item">
+                <span id="resolution-label">Resolution:</span>
+                <span id="resolution-value" class="value"></span>
+              </div>
+              <div class="metadata-item">
+                <span id="fps-label">FPS:</span>
+                <span id="fps-value" class="value"></span>
+              </div>
+            </div>
+
+            <!-- Camera Settings -->
+            <div class="metadata-group">
+              <h3 id="camera-settings-title">Camera Settings</h3>
+              <div class="metadata-item">
+                <span id="iso-label">ISO:</span>
+                <span id="iso-value" class="value"></span>
+              </div>
+              <div class="metadata-item">
+                <span id="aperture-label">Aperture:</span>
+                <span id="aperture-value" class="value"></span>
+              </div>
+              <div class="metadata-item">
+                <span id="shutter-speed-label">Shutter Speed:</span>
+                <span id="shutter-speed-value" class="value"></span>
+              </div>
+              <div class="metadata-item">
+                <span id="white-balance-label">White Balance:</span>
+                <span id="white-balance-value" class="value"></span>
+              </div>
+            </div>
+
+            <!-- Creation Info -->
+            <div class="metadata-group">
+              <h3 id="creation-info-title">Creation Information</h3>
+              <div class="metadata-item">
+                <span id="creation-date-label">Creation Date:</span>
+                <span id="creation-date-value" class="value"></span>
+              </div>
+              <div class="metadata-item">
+                <span id="software-label">Software:</span>
+                <span id="software-value" class="value"></span>
+              </div>
+            </div>
+
+            <!-- Embedded Files -->
+            <div class="metadata-group">
+              <h3 id="embedded-files-title">Embedded References</h3>
+              <div id="embedded-files" class="embedded-files">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="raw-metadata" class="metadata-section">
+          <div id="editor" class="monaco-editor"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="export-json" class="export-btn">Export as JSON</button>
+      <button id="export-txt" class="export-btn">Export as TXT</button>
+      <button id="export-csv" class="export-btn">Export as CSV</button>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

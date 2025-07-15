@@ -1,0 +1,51 @@
+{
+    "name": "video-metadata-analyzer",
+    "version": "1.1.0",
+    "description": "A video and photo metadata analysis tool",
+    "main": "src/main/main.js",
+    "scripts": {
+        "start": "electron .",
+        "pack": "electron-builder --dir",
+        "dist": "electron-builder",
+        "postinstall": "electron-builder install-app-deps"
+    },
+    "keywords": [
+        "metadata",
+        "exif",
+        "video",
+        "photo",
+        "analyzer"
+    ],
+    "author": "Firas Arafah",
+    "license": "ISC",
+    "devDependencies": {
+        "electron": "^28.0.0",
+        "electron-builder": "^24.6.4"
+    },
+    "dependencies": {
+        "electron-store": "^8.1.0",
+        "exiftool-vendored": "^18.1.0",
+        "fluent-ffmpeg": "^2.1.2",
+        "i18next": "^23.7.8",
+        "i18next-fs-backend": "^2.1.1",
+        "i18next-http-backend": "^2.3.1",
+        "jimp": "^0.22.12",
+        "monaco-editor": "^0.45.0",
+        "path": "^0.12.7",
+        "sharp": "^0.32.6"
+    },
+    "build": {
+        "appId": "com.firasarafah.videometadata",
+        "productName": "Media Metadata Analyzer",
+        "win": {
+            "target": "nsis",
+            "icon": "src/assets/icons/icon.ico"
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true,
+            "installerIcon": "src/assets/icons/icon.ico",
+            "uninstallerIcon": "src/assets/icons/icon.ico"
+        }
+    }
+}
